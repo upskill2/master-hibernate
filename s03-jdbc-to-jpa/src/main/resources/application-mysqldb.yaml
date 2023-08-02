@@ -4,8 +4,3 @@ spring:
         username: hbstudent
         password: hbstudent
         driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-        hibernate:
-        ddl-auto: update
-        show-sql: true
-
