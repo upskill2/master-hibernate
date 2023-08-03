@@ -59,7 +59,7 @@ public class JdbcToJpaApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run (final String... args) throws Exception {
+      public void run (final String... args) throws Exception {
         log.info ("All users -> {}");
         personJdbcDao.findAll ().forEach (System.out::println);
         log.info ("User id 10001 -> {}", personJdbcDao.findById (personJdbcDao.findAll ().get (0).getId ()));
@@ -67,15 +67,22 @@ public class JdbcToJpaApplication implements CommandLineRunner {
         log.info ("Deleting 10002 -> No of Rows Deleted - {}", personJdbcDao.deleteById (2));
         log.info ("Deleting 10003 -> No of Rows Deleted - {}", personJdbcDao.deleteByIdOrName (3, "Taras"));
 
-        Person person = new Person (5, "Taras", "Kyiv", Timestamp.valueOf (LocalDateTime.now ()));
-        log.info ("Inserting 10004 -> {}", personJdbcDao.insertPerson (person));
+        int size = personJdbcDao.findAll ().size ();
+        if(size>0){
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern ("yyyy-MM-dd HH:mm:ss");
-        String str = "1980-08-02 20:21:04";
-        Person person1 = new Person (personJdbcDao.findAll ().get (1).getId (), "Olia", "Zhytomyr",
-                Timestamp.valueOf (LocalDateTime.parse (str, formatter)));
-        log.info ("Updating 10003 -> {}", personJdbcDao.updatePerson (person1));
 
+
+            int lastId = personJdbcDao.findAll ().get (size - 1).getId ();
+            Person person = new Person (lastId+1, "Taras", "Kyiv", Timestamp.valueOf (LocalDateTime.now ()));
+            log.info ("Inserting 10004 -> {}", personJdbcDao.insertPerson (person));
+
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern ("yyyy-MM-dd HH:mm:ss");
+            String str = "1980-08-02 20:21:04";
+            Person person1 = new Person (lastId, "Olia", "Zhytomyr",
+                    Timestamp.valueOf (LocalDateTime.parse (str, formatter)));
+            log.info ("Updating 10003 -> {}", personJdbcDao.updatePerson (person1));
+        }
     }
 
 

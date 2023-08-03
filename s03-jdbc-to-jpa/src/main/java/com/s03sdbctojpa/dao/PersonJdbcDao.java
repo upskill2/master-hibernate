@@ -16,36 +16,37 @@ public class PersonJdbcDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Person> findAll () {
-        return jdbcTemplate.query ("select * from person", new BeanPropertyRowMapper<Person> (Person.class));
+    public List<Person> findAll() {
+        return jdbcTemplate.query("select * from person", new BeanPropertyRowMapper<Person>(Person.class));
     }
 
-    public Person findById (int id) {
+    public Person findById(int id) {
 
-        return jdbcTemplate.queryForObject ("select * from person where id=?",
+        return jdbcTemplate.queryForObject("select * from person where id=?",
                 new Object[]{id},
-                new BeanPropertyRowMapper<Person> (Person.class));
+                new BeanPropertyRowMapper<Person>(Person.class));
     }
 
-    public List<Person> findByNameAndLocation (String name, String location) {
-        return jdbcTemplate.query ("select * from person where name=? and location=?",
+    public List<Person> findByNameAndLocation(String name, String location) {
+        return jdbcTemplate.query("select * from person where name=? and location=?",
                 new Object[]{name, location},
-                new BeanPropertyRowMapper<Person> (Person.class));
+                new BeanPropertyRowMapper<Person>(Person.class));
     }
 
-    public int deleteById (int id) {
-        return jdbcTemplate.update ("delete from person where id=?",
+    public int deleteById(int id) {
+        return jdbcTemplate.update("delete from person where id=?",
                 id);
     }
 
-    public int deleteByIdOrName (int id, String name) {
-        return jdbcTemplate.update ("delete from person where id=? or name=?",
+    public int deleteByIdOrName(int id, String name) {
+        return jdbcTemplate.update("delete from person where id=? or name=?",
                 id, name);
     }
 
-    public int insertPerson (Person person) {
-        return jdbcTemplate.update ("INSERT INTO person" +
+    public int insertPerson(Person person) {
+        return jdbcTemplate.update("INSERT INTO person" +
                         "(" +
+                        "id," +
                         "name," +
                         "location," +
                         "birth_date)" +
@@ -53,18 +54,19 @@ public class PersonJdbcDao {
                         "(" +
                         "?," +
                         "?," +
-                        "sysdate())" +
-                        ";",
-                person.getName (), person.getLocation ());
+                        "?," +
+                        "?" +
+                        ");",
+               person.getId(), person.getName(), person.getLocation(), person.getBirthDate());
     }
 
-    public int updatePerson (Person person) {
-        return jdbcTemplate.update ("UPDATE person set " +
+    public int updatePerson(Person person) {
+        return jdbcTemplate.update("UPDATE person set " +
                         "name=?," +
                         "location=?," +
                         "birth_date=?" +
                         "WHERE id=?;",
-                person.getName (), person.getLocation (), person.getBirthDate (), person.getId () );
+                person.getName(), person.getLocation(), person.getBirthDate(), person.getId());
     }
 
 }
