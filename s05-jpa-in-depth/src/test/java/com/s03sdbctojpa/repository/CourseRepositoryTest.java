@@ -6,12 +6,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import javax.transaction.Transactional;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +22,7 @@ class CourseRepositoryTest {
 
     @Test
     void findById() {
-        long lastId = courseRepository.findAll().size()-1;
+        long lastId = courseRepository.findAll().size() - 1;
         Course course = courseRepository.findById(lastId);
         assertNotNull(course.getName());
     }
@@ -34,7 +32,7 @@ class CourseRepositoryTest {
     void deleteById() {
         int counter = 0;
         for (int i = 1; i < 100; i++) {
-            if(courseRepository.findById(i)!=null){
+            if (courseRepository.findById(i) != null) {
                 courseRepository.deleteById(i);
                 counter = i;
                 break;
@@ -45,13 +43,23 @@ class CourseRepositoryTest {
     }
 
     @Test
-    void testUpdate(){
-        courseRepository.update(new Course(9,"UPDATE"));
+    void testUpdate() {
+        courseRepository.update(new Course(6, "UPDATE"));
     }
 
     @Test
-    void testSave(){
-        courseRepository.save(new Course("UPDATE"));
+    void testSave() {
+        courseRepository.save(new Course("NEW_UPDATE"));
+    }
+
+    @Test
+    void testUpdateByName() {
+        courseRepository.updateByCourseName("NEW_UPDATE", "REU");
+    }
+
+    @Test
+    void namedQuery() {
+        assertThat(courseRepository.findAllNamedQuery().size(), greaterThan(0));
     }
 
 }

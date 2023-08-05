@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -31,8 +30,7 @@ public class CourseRepository {
 
     @Transactional
     public void save(Course course) {
-       entityManager.persist(course);
-       course.setName("TRANSACTIONAL");
+        entityManager.persist(course);
     }
 
     @Transactional
@@ -40,11 +38,27 @@ public class CourseRepository {
         return entityManager.merge(course);
     }
 
-    public List<Course> findAll(){
-               return entityManager.createQuery("Select c from Course c", Course.class).getResultList();
+    @Transactional
+    public int updateByCourseName(String updateFrom, String updateTo) {
+        return entityManager.createQuery("update Course c set c.name = ?1 where c.name = ?2")
+                .setParameter(1, updateTo)
+                .setParameter(2, updateFrom)
+                .executeUpdate();
+    }
+
+    public List<Course> findAll() {
+        return entityManager.createQuery("Select c from Course c", Course.class).getResultList();
+    }
+
+    public List<Course> findAllNamedQuery() {
+        return entityManager.createNamedQuery("query_get_all_courses", Course.class).getResultList();
     }
 
 
-
+    public Course jpql_findById(long id) {
+        return entityManager.createQuery("Select c from Course c where id = :id", Course.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 
 }
