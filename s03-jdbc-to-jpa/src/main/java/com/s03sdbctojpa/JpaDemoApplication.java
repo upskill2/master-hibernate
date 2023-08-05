@@ -60,7 +60,7 @@ public class JpaDemoApplication implements CommandLineRunner {
 
         //find by id
         int lastId = personJpaRepository.findAll().get(personJpaRepository.findAll().size() - 1).getId();
-        log.info("User id 10001 -> {}", personJpaRepository.findById(4));
+        log.info("User id 10001 -> {}", personJpaRepository.findById(lastId));
 
         //delete by id
         log.info("Deleting {} -> No of Rows Deleted - 1",lastId );
