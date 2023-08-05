@@ -62,4 +62,12 @@ class CourseRepositoryTest {
         assertThat(courseRepository.findAllNamedQuery().size(), greaterThan(0));
     }
 
+    @Test
+    void nativeQuery() {
+
+    String s =    courseRepository.NativeQuery(1).getName();
+       assertThat(courseRepository.NativeQuery(1).getName().length(),greaterThan(0)); ;
+
+    }
+
 }

@@ -61,4 +61,10 @@ public class CourseRepository {
                 .getSingleResult();
     }
 
+    public Course NativeQuery(long id) {
+        return (Course) entityManager.createNativeQuery("Select * from Course where id = :id", Course.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }

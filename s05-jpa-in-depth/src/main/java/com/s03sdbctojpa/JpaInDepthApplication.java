@@ -33,7 +33,9 @@ public class JpaInDepthApplication implements CommandLineRunner {
 
         //delete by id
         log.info("Delete by id -> ");
-        CourseRepository.deleteById(allCourses.get(1).getId());
+        if(allCourses.size() > 1){
+            CourseRepository.deleteById(allCourses.get(1).getId());
+        }
 
         //update
         log.info("Save/Update -> {}", CourseRepository.updateByCourseName("French", "UPDATE_COMMAND_LINE_RUNNER"));
