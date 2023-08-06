@@ -1,14 +1,14 @@
 package com.s03sdbctojpa.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "student")
-@Data
 @NoArgsConstructor
+@Getter
+@Setter
 public class Student {
 
     @Id
@@ -23,6 +23,13 @@ public class Student {
 
     @Column(name = "email")
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "passport_id", referencedColumnName = "id")
+    //for Shared Primary Key
+/*    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn*/
+    private Passport passport;
 
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
