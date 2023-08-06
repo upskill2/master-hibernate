@@ -53,7 +53,7 @@ class StudentRepositoryTest {
 
     @Test
     void testUpdate() {
-        Long id = 1L;
+        long id = 1L;
 
         Student student = studentRepository.studentById(id);
         Passport passport = student.getPassport();

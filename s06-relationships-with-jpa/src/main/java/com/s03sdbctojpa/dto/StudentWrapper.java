@@ -1,6 +1,5 @@
 package com.s03sdbctojpa.dto;
 
-import com.s03sdbctojpa.entity.Passport;
 import com.s03sdbctojpa.entity.Student;
 import org.springframework.stereotype.Component;
 
