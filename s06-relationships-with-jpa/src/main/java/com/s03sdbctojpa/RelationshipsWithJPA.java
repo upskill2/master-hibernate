@@ -2,6 +2,7 @@ package com.s03sdbctojpa;
 
 import com.s03sdbctojpa.entity.Passport;
 import com.s03sdbctojpa.entity.Student;
+import com.s03sdbctojpa.entity.Workstation;
 import com.s03sdbctojpa.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,10 @@ public class RelationshipsWithJPA implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Student student = new Student( "Jack", "Ma", "@alibaba.com");
         Passport passport = new Passport("E123456");
+        Workstation workstation = new Workstation("Dell", "Latitude 5400", "Windows 10");
 
         student.setPassport(passport);
+        student.setWorkstation(workstation);
         studentRepository.save(student);
 
     }

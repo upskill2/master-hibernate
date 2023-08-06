@@ -31,6 +31,12 @@ public class Student {
     @PrimaryKeyJoinColumn*/
     private Passport passport;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "st_workstation",
+            joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "workstation_id", referencedColumnName = "id"))
+    private Workstation workstation;
+
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;

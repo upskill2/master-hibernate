@@ -9,8 +9,7 @@ class RelationshipsWithJPATest {
 
 
     @Test
-    public void contextLoads() {
-
+    void contextLoads() {
     }
 
 }
