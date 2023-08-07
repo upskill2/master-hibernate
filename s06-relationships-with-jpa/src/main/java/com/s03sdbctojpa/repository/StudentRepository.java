@@ -2,6 +2,8 @@ package com.s03sdbctojpa.repository;
 
 import com.s03sdbctojpa.dto.StudentDto;
 import com.s03sdbctojpa.dto.StudentWrapper;
+import com.s03sdbctojpa.entity.Course;
+import com.s03sdbctojpa.entity.Review;
 import com.s03sdbctojpa.entity.Student;
 import com.s03sdbctojpa.exceptions.StudentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,21 @@ public class StudentRepository {
     }
 
     @Transactional
+    public Course updateCourse(Course course) {
+        return entityManager.merge(course);
+    }
+
+    public Course findCourseForReview(long id) {
+        Review review = entityManager.find(Review.class, id);
+        return review.getCourse();
+    }
+
+    @Transactional
+    public void save(Course course) {
+        entityManager.persist(course);
+    }
+
+    @Transactional
     public Student update(Student student) {
         return entityManager.merge(student);
     }
@@ -45,6 +62,10 @@ public class StudentRepository {
                 .setParameter(1, updateTo)
                 .setParameter(2, updateFrom)
                 .executeUpdate();
+    }
+
+    public Course findCourseById(long id) {
+        return entityManager.find(Course.class, id);
     }
 
     public List<Student> findAll() {

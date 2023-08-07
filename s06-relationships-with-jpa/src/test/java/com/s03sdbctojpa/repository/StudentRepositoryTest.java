@@ -1,7 +1,9 @@
 package com.s03sdbctojpa.repository;
 
 import com.s03sdbctojpa.dto.StudentDto;
+import com.s03sdbctojpa.entity.Course;
 import com.s03sdbctojpa.entity.Passport;
+import com.s03sdbctojpa.entity.Review;
 import com.s03sdbctojpa.entity.Student;
 import com.s03sdbctojpa.exceptions.StudentNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
@@ -21,6 +25,33 @@ class StudentRepositoryTest {
 
     @Autowired
     StudentRepository studentRepository;
+
+    @Test
+    void addNewReviewsToCourse() {
+        Review review = new Review("0", "Great Hands-on Stuff");
+        Review review1 = new Review("0", "Hats Off");
+        int courseId = 1;
+
+        Course course = studentRepository.findCourseById(courseId);
+        course.addReview(review);
+        course.addReview(review1);
+
+        studentRepository.updateCourse(course);
+    }
+
+    @Test
+    void getReviewsForCourse() {
+        int courseId = 1;
+
+        Course course = studentRepository.findCourseById(courseId);
+        course.getReviews().forEach(review -> log.info("{}", review));
+    }
+
+    @Test
+    void getCourseForReview() {
+        int reviewId = 1;
+        log.info("Course name: {}", studentRepository.findCourseForReview(1).getName());
+    }
 
     @Test
         //  @Transactional ()

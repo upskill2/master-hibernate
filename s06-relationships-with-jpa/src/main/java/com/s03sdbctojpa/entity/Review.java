@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "review")
 @Data
 @NoArgsConstructor
-public class Description {
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,15 @@ public class Description {
     @Column(name = "description")
     private String description;
 
-    public Description(String description) {
+    @ManyToOne
+    private Course course;
+
+    public Review(String description) {
+        this.rating = rating;
+        this.description = description;
+    }
+
+    public Review(String rating, String description) {
         this.rating = rating;
         this.description = description;
     }
