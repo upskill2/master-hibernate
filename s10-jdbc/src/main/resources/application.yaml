@@ -4,8 +4,8 @@ spring:
             mode: always
     datasource:
         url: jdbc:mysql://localhost:3306/hibernate-masterclass?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-        username: root
-        password: password
+        username: hbstudent
+        password: hbstudent
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
         defer-datasource-initialization: true
