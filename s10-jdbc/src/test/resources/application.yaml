@@ -1,14 +1,10 @@
 spring:
-    sql:
-        init:
-            mode: always
     datasource:
         url: jdbc:mysql://localhost:3306/hibernate-masterclass?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
         username: hbstudent
         password: hbstudent
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
-        defer-datasource-initialization: true
         hibernate:
-            ddl-auto: create
+            ddl-auto: none
             dialect: org.hibernate.dialect.MySQL8Dialect
