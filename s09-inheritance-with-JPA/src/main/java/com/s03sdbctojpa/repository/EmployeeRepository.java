@@ -5,9 +5,11 @@ import com.s03sdbctojpa.entity.FullTimeEmployee;
 import com.s03sdbctojpa.entity.PartTimeEmployee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
+
 import java.util.List;
 
 @Repository
@@ -16,7 +18,7 @@ public class EmployeeRepository {
     @Autowired
     private EntityManager entityManager;
 
-    @Transactional
+    @Transactional (isolation = Isolation.READ_UNCOMMITTED)
     public long insert(Employee employee) {
         entityManager.persist(employee);
         return employee.getId();
