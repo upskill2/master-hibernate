@@ -3,6 +3,8 @@ package com.s03sdbctojpa.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "student")
@@ -36,6 +38,22 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "workstation_id", referencedColumnName = "id"))
     private Workstation workstation;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "student_course",
+            joinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"))
+    private Set<Course> courses = new HashSet<>();
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
+    }
+
+    public void removeCourse(Course course) {
+        this.courses.remove(course);
+    }
 
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;

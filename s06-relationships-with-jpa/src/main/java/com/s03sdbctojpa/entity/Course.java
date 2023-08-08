@@ -9,7 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,6 +37,22 @@ public class Course {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     private List<Review> reviews = new ArrayList<>();
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "student_course",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id", referencedColumnName = "id"))
+    private Set<Student> students = new HashSet<>();
+
+    public void addStudents(Student students) {
+        this.students.add(students);
+    }
+
+    public void removeStudents(Student students) {
+        this.students.remove(students);
+    }
 
     public Course(String name) {
         this.name = name;

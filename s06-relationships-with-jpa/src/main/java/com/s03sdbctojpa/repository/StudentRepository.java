@@ -32,6 +32,11 @@ public class StudentRepository {
     }
 
     @Transactional
+    public void updateListOfStudents(List<Student> students) {
+        students.forEach(student -> entityManager.persist(student));
+    }
+
+    @Transactional
     public void save(Student student) {
         entityManager.persist(student);
     }
