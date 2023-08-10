@@ -1,14 +1,31 @@
+logging:
+  level:
+    net:
+      sf:
+        ehcache: debug
 spring:
-    sql:
-        init:
-            mode: always
-    datasource:
-        url: jdbc:mysql://localhost:3306/hibernate-masterclass?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-        username: hbstudent
-        password: hbstudent
-        driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-        defer-datasource-initialization: true
-        hibernate:
-            ddl-auto: update
-            dialect: org.hibernate.dialect.MySQL8Dialect
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:mysql://localhost:3306/hibernate-masterclass?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: hbstudent
+    password: hbstudent
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          region:
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
+        show_sql: true
+        format_sql: true
+    javax:
+      persistence:
+        sharedCache:
+          mode: ENABLE_SELECTIVE

@@ -1,5 +1,6 @@
 package com.s13.entity;
 
+import com.s13.Rating;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +17,8 @@ public class Review {
     private long id;
 
     @Column(name = "rating")
-    private String rating;
+    @Enumerated(EnumType.STRING)
+    private Rating rating;
 
     @Column(name = "description")
     private String description;
@@ -25,11 +27,10 @@ public class Review {
     private Course course;
 
     public Review(String description) {
-        this.rating = rating;
         this.description = description;
     }
 
-    public Review(String rating, String description) {
+    public Review(Rating rating, String description) {
         this.rating = rating;
         this.description = description;
     }

@@ -1,7 +1,6 @@
 package com.s13.repository;
 
 import com.s13.entity.Student;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
@@ -9,7 +8,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.util.List;
 
 @RepositoryRestResource (path = "students")
-public interface StudentDaoJPA extends PagingAndSortingRepository<Student, Long> {
+public interface StudentRepository extends PagingAndSortingRepository<Student, Long> {
 
     List<Student> findByFirstNameOrderByLastNameDesc (String firstName);
 
