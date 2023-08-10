@@ -2,13 +2,16 @@ package com.s13.entity;
 
 import com.s13.Rating;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "review")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Review {
 
